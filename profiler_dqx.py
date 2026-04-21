@@ -5,6 +5,8 @@ from databricks.labs.dqx.config import WorkspaceFileChecksStorageConfig
 from databricks.labs.dqx.engine import DQEngine
 from databricks.sdk import WorkspaceClient
 
+df = spark.read.table("samples.nyctaxi.trips")
+
 # profile input data
 ws = WorkspaceClient()
 profiler = DQProfiler(ws)
