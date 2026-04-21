@@ -4,12 +4,12 @@ bundle:
 resources:
   jobs:
     dqx_profiler_job:
-      name: dqx-profiler-job
+      name: dqx-mutil-table-profiler-job
 
       tasks:
         - task_key: run_profiler
           spark_python_task:
-            python_file: profiler_dqx.py
+            python_file: profiler_dqx_multi_table.py
           job_cluster_key: profiler_cluster
           libraries:
             - pypi:
@@ -18,6 +18,25 @@ resources:
       job_clusters:
         - job_cluster_key: profiler_cluster
           new_cluster:
-            spark_version: 16.4.x-scala2.13
+            spark_version: 15.4.x-scala2.13
             num_workers: 1
             node_type_id: Standard_D4ds_v4
+
+    # dqx_profiler_job:
+    #   name: dqx-profiler-job
+
+    #   tasks:
+    #     - task_key: run_profiler
+    #       spark_python_task:
+    #         python_file: profiler_dqx.py
+    #       job_cluster_key: profiler_cluster
+    #       libraries:
+    #         - pypi:
+    #             package: databricks-labs-dqx
+
+    #   job_clusters:
+    #     - job_cluster_key: profiler_cluster
+    #       new_cluster:
+    #         spark_version: 16.4.x-scala2.13
+    #         num_workers: 1
+    #         node_type_id: Standard_D4ds_v4
