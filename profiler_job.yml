@@ -1,0 +1,16 @@
+resources:
+  jobs:
+    dqx_profiler_job:
+      name: dqx-profiler-job
+
+      tasks:
+        - task_key: run_profiler
+          spark_python_task:
+            python_file: profiler_dqx.py
+
+      job_clusters:
+        - job_cluster_key: profiler_cluster
+          new_cluster:
+            spark_version: 16.4.x-scala2.13
+            num_workers: 1
+            node_type_id: Standard_D4ds_v4
