@@ -1,3 +1,6 @@
+bundle:
+  name: dqx-sample-profiling
+
 resources:
   jobs:
     dqx_profiler_job:
@@ -7,6 +10,7 @@ resources:
         - task_key: run_profiler
           spark_python_task:
             python_file: profiler_dqx.py
+          job_cluster_key: profiler_cluster
 
       job_clusters:
         - job_cluster_key: profiler_cluster
