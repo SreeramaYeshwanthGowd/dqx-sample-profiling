@@ -13,7 +13,7 @@ resources:
           job_cluster_key: profiler_cluster
           libraries:
             - pypi:
-                package: databricks-labs-dqx==0.13.0
+                package: databricks-labs-dqx
 
       job_clusters:
         - job_cluster_key: profiler_cluster
