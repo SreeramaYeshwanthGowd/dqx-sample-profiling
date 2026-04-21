@@ -11,6 +11,9 @@ resources:
           spark_python_task:
             python_file: profiler_dqx.py
           job_cluster_key: profiler_cluster
+          libraries:
+            - pypi:
+                package: databricks-labs-dqx==0.13.0
 
       job_clusters:
         - job_cluster_key: profiler_cluster
