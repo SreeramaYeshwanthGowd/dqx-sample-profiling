@@ -1,5 +1,31 @@
 # Reusable Polyglot Repository Template
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [How to Use](#how-to-use)
+  - [Run from GitHub](#run-from-github)
+  - [Run from Local Repository](#run-from-local-repository)
+  - [Run Specific Branch](#run-specific-branch)
+- [Step-by-Step Usage](#step-by-step-usage)
+  - [1. Install Cookiecutter](#1-install-cookiecutter)
+  - [2. Run the Template](#2-run-the-template)
+  - [3. Enter Template Parameters](#3-enter-template-parameters)
+  - [4. Generated Repository](#4-generated-repository)
+  - [5. Validate Databricks Bundle](#5-validate-databricks-bundle)
+- [Parameters](#parameters)
+  - [repo_name](#repo_name)
+  - [project_type](#project_type)
+  - [enable_databricks_bundle](#enable_databricks_bundle)
+  - [databricks_profile](#databricks_profile)
+  - [include_github_actions](#include_github_actions)
+- [References](#references)
+
+---
+
+# Overview
+
 A reusable Cookiecutter template for generating standardized repositories for Databricks-based projects.
 
 This template supports:
@@ -10,6 +36,17 @@ This template supports:
 - Databricks Asset Bundles integration
 
 The implementation leverages Cookiecutter’s polyglot templating, hooks, and conditional rendering capabilities to simplify repository creation.
+
+---
+
+# Features
+
+- Polyglot repository generation
+- Conditional Scala/Python scaffolding
+- Databricks Asset Bundles support
+- GitHub Actions integration
+- Reusable and standardized repository structure
+- Cookiecutter hook support for post-generation automation
 
 ---
 
@@ -27,190 +64,7 @@ To run the template and generate a fully functional repository structure ready f
 8. Activate CI/CD workflows and deployment pipelines.
 9. Your repository is now ready for development and deployment.
 
-# How to Use
-
-The template can be executed either locally or directly from GitHub.
-
 ## Run from GitHub
 
 ```bash
 cookiecutter https://github.com/<org>/<repo>.git
-```
-
-## Run from Local Repository
-
-```bash
-git clone <template-repo>
-cd <template-repo>
-
-cookiecutter .
-```
-
-## Run Specific Branch
-
-```bash
-cookiecutter https://github.com/<org>/<repo>.git --checkout develop
-```
-
----
-
-# Step-by-Step Usage
-
-## 1. Install Cookiecutter
-
-```bash
-pip install cookiecutter
-```
-
-Or:
-
-```bash
-uv tool install cookiecutter
-```
-
----
-
-## 2. Run the Template
-
-```bash
-cookiecutter https://github.com/<org>/<repo>.git
-```
-
----
-
-## 3. Enter Template Parameters
-
-Example:
-
-```text
-repo_name: customer-analytics
-project_type: hybrid
-enable_databricks_bundle: true
-```
-
----
-
-## 4. Generated Repository
-
-Example output:
-
-```text
-customer-analytics/
-├── python/
-├── scala/
-├── bundles/
-├── tests/
-└── Makefile
-```
-
----
-
-## 5. Validate Databricks Bundle
-
-```bash
-cd customer-analytics
-
-databricks bundle validate
-```
-
----
-
-# Parameters
-
-## repo_name
-
-Repository name in kebab-case.
-
-Example:
-
-```text
-customer-analytics
-```
-
-Used for:
-
-- Repository folder naming
-- Bundle naming
-- Package naming
-
----
-
-## project_type
-
-Determines repository type.
-
-Options:
-
-```text
-python
-scala
-hybrid
-```
-
-### python
-
-Generates:
-
-- `pyproject.toml`
-- Python source structure
-
-### scala
-
-Generates:
-
-- `build.sbt`
-- Scala source structure
-
-### hybrid
-
-Generates both Python and Scala structures.
-
----
-
-## enable_databricks_bundle
-
-Options:
-
-```text
-true / false
-```
-
-If enabled:
-
-- Generates Databricks bundle scaffolding
-- Adds deployment configuration
-- Enables bundle validation commands
-
----
-
-## databricks_profile
-
-Databricks CLI profile to use.
-
-Example:
-
-```text
-dev-private
-```
-
----
-
-## include_github_actions
-
-Options:
-
-```text
-true / false
-```
-
-If enabled:
-
-- Generates GitHub Actions workflows
-- Adds CI/CD scaffolding
-  
----
-
-# References
-
-- Cookiecutter Documentation: https://cookiecutter.readthedocs.io/en/stable/
-- Cookiecutter GitHub Repository: https://github.com/cookiecutter/cookiecutter
