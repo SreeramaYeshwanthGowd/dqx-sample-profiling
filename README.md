@@ -8,23 +8,24 @@ This template supports:
 - Scala-only repositories
 - Hybrid Scala + Python repositories
 - Databricks Asset Bundles integration
-- Conditional file/folder generation
-- Shared CI/CD and repository standards
 
-The implementation leverages Cookiecutter’s polyglot templating, hooks, and conditional rendering capabilities to simplify repository creation and standardization across teams.
+The implementation leverages Cookiecutter’s polyglot templating, hooks, and conditional rendering capabilities to simplify repository creation..
 
 ---
 
-# Features
+# How to Use
 
-- Polyglot repository support
-- Databricks bundle integration
-- Conditional file generation and cleanup
-- Shared Makefile and CI/CD structure
-- Hook-based automation
-- Local and GitHub-based template execution
+To run the template and generate a fully functional repository structure ready for development and deployment, please follow the steps below:
 
----
+1. Install Cookiecutter.
+2. Run the template.
+3. Enter the required template parameters.
+4. Create the GitHub repository.
+5. Configure Databricks authentication.
+6. Validate the Databricks bundle.
+7. Adjust the code based on project requirements.
+8. Activate CI/CD workflows and deployment pipelines.
+9. Your repository is now ready for development and deployment.
 
 # How to Use
 
