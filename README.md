@@ -20,6 +20,7 @@
   - [enable_databricks_bundle](#enable_databricks_bundle)
   - [databricks_profile](#databricks_profile)
   - [include_github_actions](#include_github_actions)
+- [Example](#Example)
 - [References](#references)
 
 ---
@@ -240,6 +241,50 @@ If enabled:
 
 - Generates GitHub Actions workflows
 - Adds CI/CD scaffolding
+
+---
+# Example
+
+Below is a quick example showing how to generate a new hybrid repository using this template.
+
+## Run the Template
+
+```bash
+cookiecutter https://github.com/<org>/<template-repo>.git
+```
+
+## Example Inputs
+
+```text
+repo_name: customer-analytics
+project_type: hybrid
+enable_databricks_bundle: true
+databricks_profile: dev-private
+include_github_actions: true
+```
+
+## Example Generated Structure
+
+```text
+customer-analytics/
+├── python/
+├── scala/
+├── bundles/
+├── tests/
+├── .github/workflows/
+├── Makefile
+└── README.md
+```
+
+## Validate the Bundle
+
+```bash
+cd customer-analytics
+
+databricks bundle validate
+```
+
+The repository is now ready for development, CI/CD integration, and Databricks deployment.
 
 ---
 
