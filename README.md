@@ -9,7 +9,7 @@ This template supports:
 - Hybrid Scala + Python repositories
 - Databricks Asset Bundles integration
 
-The implementation leverages Cookiecutter’s polyglot templating, hooks, and conditional rendering capabilities to simplify repository creation..
+The implementation leverages Cookiecutter’s polyglot templating, hooks, and conditional rendering capabilities to simplify repository creation.
 
 ---
 
