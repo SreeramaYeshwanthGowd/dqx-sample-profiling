@@ -207,26 +207,10 @@ If enabled:
 
 - Generates GitHub Actions workflows
 - Adds CI/CD scaffolding
-
----
-
-# Hooks and Cleanup
-
-The template uses Cookiecutter hooks for:
-
-- Input validation
-- Conditional cleanup
-- Databricks initialization
-- Repository setup automation
-
-Example:
-
-If `project_type=python`, Scala files are automatically removed after generation.
-
+  
 ---
 
 # References
 
 - Cookiecutter Documentation: https://cookiecutter.readthedocs.io/en/stable/
 - Cookiecutter GitHub Repository: https://github.com/cookiecutter/cookiecutter
-- Giter8 Documentation: https://www.foundweekends.org/giter8/index.html
