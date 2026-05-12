@@ -37,7 +37,7 @@ The implementation leverages Cookiecutter’s polyglot templating, hooks, and co
 - Databricks Asset Bundles support
 - GitHub Actions integration
 - Reusable and standardized repository structure
-- Cookiecutter hook support for post-generation automation
+- Cookiecutter hook support for pre and post-generation automation
 
 ---
 
