@@ -48,13 +48,16 @@ To run the template and generate a fully functional repository structure ready f
 1. Install Cookiecutter.
 2. Run the template.
 3. Enter the required template parameters.
-4. Create the GitHub repository.
-5. Configure Databricks authentication.
-6. Validate the Databricks bundle.
-7. Adjust the code based on project requirements.
-8. Activate CI/CD workflows and deployment pipelines.
-9. Your repository is now ready for development and deployment.
-
+4. The template will generate the complete project structure locally.
+5. Navigate to the generated project directory.
+6. Make the necessary code and configuration changes based on your project requirements.
+7. Create a GitHub repository with the exact same name as the generated local repository.
+8. Connect the local project to the GitHub repository, and push the generated code.
+9. Create a Pull Request (PR) with your changes following your team’s development workflow.
+10. Configure Databricks authentication.
+11. Validate the Databricks bundle.
+12. Activate CI/CD workflows and deployment pipelines.
+13. Your repository is now ready for development and deployment.
 ## Run from GitHub
 
 ```bash
