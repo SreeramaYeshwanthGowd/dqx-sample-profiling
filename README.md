@@ -12,32 +12,58 @@ The goal of this guide is to help any user understand:
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Typical Generated Structure](#typical-generated-structure)
-3. [Prerequisites](#prerequisites)
+2. [Questionnaire Decision Tree](#questionnaire-decision-tree)
+3. [Typical Generated Structure](#typical-generated-structure)
 4. [How to Generate a Repository](#how-to-generate-a-repository)
-5. [Questionnaire Decision Tree](#questionnaire-decision-tree)
-6. [Step-by-Step Usage After Generation](#step-by-step-usage-after-generation)
-7. [Makefile Utilities](#makefile-utilities)
-8. [Databricks Asset Bundle Usage](#databricks-asset-bundle-usage)
-9. [Detailed Example](#detailed-example)
+5. [Step-by-Step Usage After Generation](#step-by-step-usage-after-generation)
+6. [Detailed Example](#detailed-example)
 
 ## Overview
 
 The DNA consolidated template is designed to scaffold repositories for Databricks-oriented development with a consistent structure, consistent automation, and standard build commands.
 
-It supports three repository types:
+The template walks the user through a short questionnaire, generates the repository structure, and prepares the project for local development with a standard set of root-level commands.
 
-- Python
-- Scala
-- Hybrid
+## Questionnaire Decision Tree
 
-During generation, the template prompts the user for the basic project details, the package folder names, and whether Databricks Asset Bundle support should be included.
+The following flow chart shows the questionnaire path and the choices available during generation.
 
-After generation, the template automatically:
+```mermaid
+flowchart TD
+  A[Start cookiecutter generation] --> B[Select project type]
+  B -->|Python| C[Enter Python package folder name]
+  B -->|Scala| D[Enter Scala package folder name]
+  B -->|Hybrid| E[Enter Python package folder name]
+  E --> F[Enter Scala package folder name]
 
-- removes unused language folders
-- renames the language folders to the names supplied by the user
-- optionally includes a ready-to-use `databricks.yml`
+  C --> G[Databricks DAB setup question]
+  D --> G
+  F --> G
+
+  G -->|Yes| H[Enter Databricks workspace host URL]
+  H --> I[Enter Databricks CLI profile name]
+  G -->|No| J[Skip Databricks config]
+
+  I --> K[Cookiecutter variable prompts]
+  J --> K
+
+  K --> L[repo_name]
+  L --> M[project_name]
+  M --> N[author_name]
+  N --> O[team_name]
+  O --> P[spark_version]
+
+  P -->|Python selected| Q[python_version]
+  P -->|Scala selected| R[scala_version]
+  P -->|Hybrid selected| R
+
+  R --> S[Generate repository]
+  Q --> S
+
+  S --> T[Remove unused folders]
+  T --> U[Rename language folders to chosen package names]
+  U --> V[Create final repository]
+```
 
 ## Typical Generated Structure
 
@@ -68,30 +94,15 @@ repo-root/
     src/
 ```
 
-## Prerequisites
+## How to Generate a Repository
 
-Install the tools that apply to your project type.
-
-General:
+Before generating a repository, make sure you have the following tools available as needed:
 
 - Git
 - Cookiecutter
-
-For Python projects:
-
-- Python 3.11 or later recommended
-
-For Scala projects:
-
-- Java 21
-- sbt
-
-For Databricks support:
-
-- Databricks CLI
-- a configured Databricks CLI profile on the user machine
-
-## How to Generate a Repository
+- Python 3.11 or later for Python-based projects
+- Java 21 and sbt for Scala-based projects
+- Databricks CLI if you plan to enable Databricks support
 
 Run Cookiecutter from the template root.
 
@@ -117,48 +128,6 @@ If Hybrid is selected, the template asks separately for:
 - Scala package folder name
 
 These names are then used to rename the generated language folders.
-
-## Questionnaire Decision Tree
-
-The following flow chart shows the full questionnaire path and the choices available at generation time.
-
-```mermaid
-flowchart TD
-    A[Start cookiecutter generation] --> B[Select project type]
-    B -->|Python| C[Enter Python package folder name]
-    B -->|Scala| D[Enter Scala package folder name]
-    B -->|Hybrid| E[Enter Python package folder name]
-    E --> F[Enter Scala package folder name]
-
-    C --> G[Databricks DAB setup question]
-    D --> G
-    F --> G
-
-    G -->|Yes| H[Enter Databricks workspace host URL]
-    H --> I[Enter Databricks CLI profile name]
-    G -->|No| J[Skip Databricks config]
-
-    I --> K[Cookiecutter variable prompts]
-    J --> K
-
-    K --> L[repo_name]
-    L --> M[project_name]
-    M --> N[author_name]
-    N --> O[team_name]
-    O --> P[spark_version]
-
-    P -->|Python selected| Q[python_version]
-    P -->|Scala selected| R[scala_version]
-    P -->|Hybrid selected| R
-
-    R --> S[Generate repository]
-    Q --> S
-
-    S --> T[Remove unused folders]
-    T --> U[Rename language folders to chosen package names]
-    U --> V[Keep project-type-specific workflows]
-    V --> W[Create final repository]
-```
 
 ## Step-by-Step Usage After Generation
 
@@ -209,41 +178,15 @@ This is the convenience command that runs the standard local CI sequence.
 - Without Databricks support: build + test
 - With Databricks support: build + test + bundle validation
 
-## Makefile Utilities
+If Databricks support is enabled, the generated repository also includes:
 
-The top-level `Makefile` is the main entry point for users.
+- `make validate` to check the Databricks bundle configuration
+- `make deploy` to deploy the Databricks bundle
 
-Common commands:
+In simple terms:
 
-- `make setup`
-- `make build`
-- `make test`
-- `make ci`
-
-If Databricks support is enabled, the following are also available:
-
-- `make validate`
-- `make deploy`
-
-This design keeps the user experience simple and avoids asking users to remember separate command sets for each language.
-
-## Databricks Asset Bundle Usage
-
-If Databricks support was enabled during generation, the repository includes `databricks.yml` and Makefile targets for validation and deployment.
-
-Typical commands:
-
-```bash
-make validate
-make deploy
-```
-
-How it works:
-
-- `databricks.yml` stores the Databricks workspace host
-- `Makefile` stores the default Databricks CLI profile
-- `make validate` runs bundle validation using the default or supplied profile
-- `make deploy` runs bundle deployment using the default or supplied profile
+- `databricks.yml` contains the Databricks workspace host
+- `Makefile` contains the default Databricks CLI profile
 
 ## Detailed Example
 
