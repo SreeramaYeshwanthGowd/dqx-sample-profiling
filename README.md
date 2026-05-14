@@ -15,8 +15,9 @@ The goal of this guide is to help any user understand:
 2. [Questionnaire Decision Tree](#questionnaire-decision-tree)
 3. [Typical Generated Structure](#typical-generated-structure)
 4. [How to Generate a Repository](#how-to-generate-a-repository)
-5. [Step-by-Step Usage After Generation](#step-by-step-usage-after-generation)
+5. [After Local Repository Creation](#after-local-repository-creation)
 6. [Detailed Example](#detailed-example)
+7. [Cookiecutter Documentation](#cookiecutter-documentation)
 
 ## Overview
 
@@ -122,71 +123,31 @@ During generation, the template prompts for:
 - whether Databricks Asset Bundle support should be enabled
 - Databricks host and Databricks CLI profile if Databricks support is enabled
 
-If Hybrid is selected, the template asks separately for:
+## After Local Repository Creation
 
-- Python package folder name
-- Scala package folder name
+Once the repository has been created locally, use the generated project as a starting point rather than assuming it is production-ready as-is.
 
-These names are then used to rename the generated language folders.
+Recommended next steps:
 
-## Step-by-Step Usage After Generation
+1. Change into the generated repository directory.
+2. Review the generated structure and remove or extend anything that does not fit your use case.
+3. Update the code, dependencies, configuration, and naming so the repository matches your team standards and engineering expectations.
+4. Run the relevant root-level commands such as `make setup`, `make build`, `make test`, and, if enabled, `make validate`.
+5. Create a new repository in GitHub.
+6. Add the GitHub repository as the remote for the generated local repository.
+7. Commit your changes and push the code to GitHub.
 
-Once the repository is created, change into the repository root:
+Typical GitHub bootstrap flow:
 
 ```bash
 cd <generated-repository>
+git init
+git add .
+git commit -m "Initial commit from DNA consolidated template"
+git branch -M main
+git remote add origin <your-github-repository-url>
+git push -u origin main
 ```
-
-### Step 1. Set up the project
-
-Run:
-
-```bash
-make setup
-```
-
-What this does depends on the repository type:
-
-- Python: creates a local virtual environment inside the Python package folder
-- Scala: resolves Scala dependencies with sbt in CI-friendly batch mode
-- Hybrid: does both
-
-### Step 2. Build the project
-
-Run:
-
-```bash
-make build
-```
-
-What this does depends on the repository type:
-
-- Python: compiles Python source files
-- Scala: runs `sbt compile`
-- Hybrid: runs both operations
-
-### Step 3. Run the local CI flow
-
-Run:
-
-```bash
-make ci
-```
-
-This is the convenience command that runs the standard local CI sequence.
-
-- Without Databricks support: build + test
-- With Databricks support: build + test + bundle validation
-
-If Databricks support is enabled, the generated repository also includes:
-
-- `make validate` to check the Databricks bundle configuration
-- `make deploy` to deploy the Databricks bundle
-
-In simple terms:
-
-- `databricks.yml` contains the Databricks workspace host
-- `Makefile` contains the default Databricks CLI profile
 
 ## Detailed Example
 
@@ -228,3 +189,9 @@ make build
 make test
 make validate
 ```
+
+## Cookiecutter Documentation
+
+For full Cookiecutter usage, prompts, replay files, template authoring, and advanced options, refer to the official documentation:
+
+https://cookiecutter.readthedocs.io/en/stable/
