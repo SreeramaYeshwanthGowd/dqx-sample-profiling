@@ -4,20 +4,18 @@ This repository is generated from the DNA consolidated Cookiecutter template. Th
 
 The goal of this guide is to help any user understand:
 
-- what the template generates
-- how to create a repository from it
+- how to create a repository from the template
 - how to work with the generated project locally
 - how Databricks Asset Bundle support works
-- how GitHub Actions are configured
-- where to change settings after project creation
+- what choices can be made during the template questionnaire
 
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [What the Template Generates](#what-the-template-generates)
-3. [Typical Generated Structure](#typical-generated-structure)
-4. [Prerequisites](#prerequisites)
-5. [How to Generate a Repository](#how-to-generate-a-repository)
+2. [Typical Generated Structure](#typical-generated-structure)
+3. [Prerequisites](#prerequisites)
+4. [How to Generate a Repository](#how-to-generate-a-repository)
+5. [Questionnaire Decision Tree](#questionnaire-decision-tree)
 6. [Step-by-Step Usage After Generation](#step-by-step-usage-after-generation)
 7. [Makefile Utilities](#makefile-utilities)
 8. [Databricks Asset Bundle Usage](#databricks-asset-bundle-usage)
@@ -39,21 +37,7 @@ After generation, the template automatically:
 
 - removes unused language folders
 - renames the language folders to the names supplied by the user
-- keeps only the workflows required for the generated repository type
 - optionally includes a ready-to-use `databricks.yml`
-
-## What the Template Generates
-
-The template gives users a ready repository with:
-
-- a top-level `Makefile` for setup, build, test, CI, and optional Databricks commands
-- Python project scaffolding when Python or Hybrid is selected
-- Scala project scaffolding when Scala or Hybrid is selected
-- GitHub Actions PR workflows
-- a reusable GitHub composite action for Databricks-oriented build and deploy scenarios
-- optional Databricks Asset Bundle configuration
-
-This template is meant to reduce manual setup and establish a consistent engineering baseline across repositories.
 
 ## Typical Generated Structure
 
@@ -133,6 +117,48 @@ If Hybrid is selected, the template asks separately for:
 - Scala package folder name
 
 These names are then used to rename the generated language folders.
+
+## Questionnaire Decision Tree
+
+The following flow chart shows the full questionnaire path and the choices available at generation time.
+
+```mermaid
+flowchart TD
+    A[Start cookiecutter generation] --> B[Select project type]
+    B -->|Python| C[Enter Python package folder name]
+    B -->|Scala| D[Enter Scala package folder name]
+    B -->|Hybrid| E[Enter Python package folder name]
+    E --> F[Enter Scala package folder name]
+
+    C --> G[Databricks DAB setup question]
+    D --> G
+    F --> G
+
+    G -->|Yes| H[Enter Databricks workspace host URL]
+    H --> I[Enter Databricks CLI profile name]
+    G -->|No| J[Skip Databricks config]
+
+    I --> K[Cookiecutter variable prompts]
+    J --> K
+
+    K --> L[repo_name]
+    L --> M[project_name]
+    M --> N[author_name]
+    N --> O[team_name]
+    O --> P[spark_version]
+
+    P -->|Python selected| Q[python_version]
+    P -->|Scala selected| R[scala_version]
+    P -->|Hybrid selected| R
+
+    R --> S[Generate repository]
+    Q --> S
+
+    S --> T[Remove unused folders]
+    T --> U[Rename language folders to chosen package names]
+    U --> V[Keep project-type-specific workflows]
+    V --> W[Create final repository]
+```
 
 ## Step-by-Step Usage After Generation
 
